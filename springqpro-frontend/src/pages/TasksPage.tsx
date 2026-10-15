@@ -300,19 +300,20 @@ export default function TasksPage() {
     }
   };
 
-  const fetchMetrics = async () => {
-    const [submitted, completed, failed, queue] = await Promise.all([
-      fetchMetric("springqpro_tasks_submitted_total"),
-      fetchMetric("springqpro_tasks_completed_total"),
-      fetchMetric("springqpro_tasks_failed_total"),
-      fetchMetric("springqpro_queue_memory_size"),
-    ]);
 
-    setSubmittedCount(submitted);
-    setCompletedCount(completed);
-    setFailedCount(failed);
-    setQueueSize(queue);
-  };
+const fetchMetrics = async () => {
+  const [submitted, completed, failed] = await Promise.all([
+    fetchMetric("springqpro_tasks_submitted_total"),
+    fetchMetric("springqpro_tasks_completed_total"),
+    fetchMetric("springqpro_tasks_failed_total"),
+  ]);
+
+  setSubmittedCount(submitted);
+  setCompletedCount(completed);
+  setFailedCount(failed);
+  setQueueSize(null);
+};
+
   // Similar idea with the polling as to the Recent Tasks panel:
   useEffect(() => {
     fetchMetrics();
@@ -631,7 +632,7 @@ export default function TasksPage() {
                   <b>Tasks Failed:</b> {failedCount ?? "—"}
                 </div>
                 <div>
-                  <b>Queue Memory Size:</b> {queueSize ?? "—"}
+                <b>Queue Memory Size:</b> Not available
                 </div>
               </div>
             </div>

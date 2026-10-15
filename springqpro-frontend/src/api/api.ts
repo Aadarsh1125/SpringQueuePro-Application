@@ -6,7 +6,10 @@ It's just the intermediary layer for frontend-to-backend interaction.
 NOTE: Definitely some things to tidy up stylistically and conventions-wise (see getRedisTokenStatus comment) but low priority.
 */
 
-export const API_BASE = import.meta.env.VITE_API_BASE.replace(/\/+$/, "");
+export const API_BASE = (
+  import.meta.env.VITE_API_BASE || "http://localhost:8080"
+).replace(/\/+$/, "");
+
 
 // Auth-related API calls to AuthenticationController.java in the backend:
 // [1] - /auth/register
